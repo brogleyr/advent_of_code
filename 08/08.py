@@ -20,8 +20,8 @@ class Grid:
         ]
 
 def is_vis(col, row, grid):
-    val = grid.matrix[row][col]
-    visible = map(lambda sight: val > max(sight, default=-1), grid.get_sightlines(col, row))
+    height = grid.matrix[row][col]
+    visible = map(lambda sight: height > max(sight, default=-1), grid.get_sightlines(col, row))
     return reduce(lambda a, b: a or b, visible)
 
 def sight_dist(sightline, height):
@@ -29,8 +29,8 @@ def sight_dist(sightline, height):
     return vis_line.index(True) + 1 if True in vis_line else len(vis_line)
 
 def scenic_score(col, row, grid):
-    val = grid.matrix[row][col]
-    scores = map(lambda sight: sight_dist(sight, val), grid.get_sightlines(col, row))
+    height = grid.matrix[row][col]
+    scores = map(lambda sight: sight_dist(sight, height), grid.get_sightlines(col, row))
     return reduce(lambda a, b: a * b, scores)
 
 lines = open('input.txt', 'r').readlines()
