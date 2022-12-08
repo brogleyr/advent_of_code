@@ -13,10 +13,10 @@ class Grid:
     #[up, down, left, right]
     def get_sightlines(self, col, row):
         return  [
-            grid.column(col)[:row][::-1],
-            grid.column(col)[row+1:],
-            grid.row(row)[:col][::-1],
-            grid.row(row)[col+1:],
+            self.column(col)[:row][::-1],
+            self.column(col)[row+1:],
+            self.row(row)[:col][::-1],
+            self.row(row)[col+1:],
         ]
 
 def is_vis(col, row, grid):
