@@ -21,17 +21,18 @@ class Rope():
         self.move_head(dir)
         for i in range(self.size - 1):
             self.move_tail(i, i+1)
-        if self.knots[-1] not in self.tail_coverage: self.tail_coverage.append(self.knots[-1].copy())
+        if self.knots[-1] not in self.tail_coverage: 
+            self.tail_coverage.append(self.knots[-1].copy())
         #print(self.knots)
 
     def move_head(self, dir):
         self.knots[0] = list(map(add, self.knots[0], self.dirs[dir]))
 
     def move_tail(self, parent, child):
-        diff = (self.knots[parent][0] - self.knots[child][0], self.knots[parent][1] - self.knots[child][1])
-        dist = abs(list(diff)[0]) + abs(list(diff)[1])
-        if abs(list(diff)[0]) > 1 or dist > 2: self.knots[child][0] += self.sign(diff[0])
-        if abs(list(diff)[1]) > 1 or dist > 2: self.knots[child][1] += self.sign(diff[1])
+        diff = [self.knots[parent][0] - self.knots[child][0], self.knots[parent][1] - self.knots[child][1]]
+        dist = abs(diff[0]) + abs(diff[1])
+        if abs(diff[0]) > 1 or dist > 2: self.knots[child][0] += self.sign(diff[0])
+        if abs(diff[1]) > 1 or dist > 2: self.knots[child][1] += self.sign(diff[1])
     
     def sign(self, num):
         return int(math.copysign(1, num))
