@@ -1,5 +1,5 @@
 import math
-from operator import add
+from operator import add, sub
 
 class Rope():
     size = 2
@@ -15,9 +15,9 @@ class Rope():
 
     def execute(self, line):
         [dir, num] = line.strip().split(' ')
-        for i in range(int(num)): self.execute_move(dir)
+        for i in range(int(num)): self.move(dir)
 
-    def execute_move(self, dir):
+    def move(self, dir):
         self.move_head(dir)
         for i in range(self.size - 1):
             self.move_tail(i, i+1)
@@ -28,7 +28,7 @@ class Rope():
         self.knots[0] = list(map(add, self.knots[0], self.dirs[dir]))
 
     def move_tail(self, parent, child):
-        diff = [self.knots[parent][0] - self.knots[child][0], self.knots[parent][1] - self.knots[child][1]]
+        diff = list(map(sub, self.knots[parent], self.knots[child]))
         dist = abs(diff[0]) + abs(diff[1])
         if abs(diff[0]) > 1 or dist > 2: self.knots[child][0] += self.sign(diff[0])
         if abs(diff[1]) > 1 or dist > 2: self.knots[child][1] += self.sign(diff[1])
