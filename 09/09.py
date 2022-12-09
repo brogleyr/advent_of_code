@@ -7,11 +7,11 @@ class Rope():
     dirs = {'U': (0, 1), 'D': (0, -1), 'L': (-1, 0), 'R': (1, 0)}
     tail_coverage = []
 
-    def __init__(self, size = 1):
+    def __init__(self, size = 2):
         self.size = size
         self.knots = []
-        self.tail_coverage = []
         for i in range(size): self.knots.append([0, 0])
+        self.tail_coverage = [self.knots[-1].copy()]
 
     def execute(self, line):
         [dir, num] = line.strip().split(' ')
@@ -23,7 +23,6 @@ class Rope():
             self.move_tail(i, i+1)
         if self.knots[-1] not in self.tail_coverage: 
             self.tail_coverage.append(self.knots[-1].copy())
-        #print(self.knots)
 
     def move_head(self, dir):
         self.knots[0] = list(map(add, self.knots[0], self.dirs[dir]))
